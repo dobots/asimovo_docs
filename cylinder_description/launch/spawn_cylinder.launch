@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<!-- Launch the world file-->
+<launch>
+  <arg name="sdf_robot_file" default="$(find cylinder_description)/gazebo_model/model.sdf" />
+  <arg name="robot_name" default="unit_cylinder" />
+  <node name="spawn_cylinder" pkg="gazebo_ros" type="spawn_model"  respawn="false" output="screen" args="-file ${arg sdf_robot_file} -sdf -model $(arg robot_name)"/>
+</launch>
