@@ -3,5 +3,5 @@
 <launch>
   <arg name="sdf_robot_file" default="$(find cylinder_description)/gazebo_model/cylinder_model/model.sdf" />
   <arg name="robot_name" default="cylinder_model" />
-  <node name="spawn_cylinder" pkg="gazebo_ros" type="spawn_model"  respawn="false" output="screen" args="-file ${arg sdf_robot_file} -sdf -model $(arg robot_name)"/>
+  <node name="spawn_cylinder" pkg="gazebo_ros" type="spawn_model"  respawn="false" output="screen" args="-file $(arg sdf_robot_file) -sdf -model $(arg robot_name)"/>
 </launch>
