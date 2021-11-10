@@ -1,7 +1,13 @@
 <?xml version="1.0"?>
 <!-- Launch the world file-->
 <launch>
+<!-- fill in the name of the whole folder containing the robot model-->
+<arg name="model_folder" default="$(find cylinder_description)/gazebo_model/cylinder_model"/>  
+
   <arg name="sdf_robot_file" default="$(find cylinder_description)/gazebo_model/cylinder_model/model.sdf" />
   <arg name="robot_name" default="cylinder_model" />
   <node name="spawn_cylinder" pkg="gazebo_ros" type="spawn_model"  respawn="false" output="screen" args="-file $(arg sdf_robot_file) -sdf -model $(arg robot_name)"/>
+  
+   <!-- node to ensure gzweb can find the sdf model -->    
+  <node pkg="gzweb_model" name="foo" type="gzweb_model.bash" args="$(arg model_folder)"/>
 </launch>
