@@ -1,5 +1,6 @@
-cmake_minimum_required(VERSION 3.5)
-project(my_robot_description)
+cmake_minimum_required(VERSION 3.3)
+project(raptor_description)
+
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -19,8 +20,6 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclpy REQUIRED)
 find_package(gazebo_ros_pkgs REQUIRED)
-find_package(urdf REQUIRED)
-find_package(xacro REQUIRED)
 
 find_package(rclcpp REQUIRED)
 find_package(geometry_msgs REQUIRED)
@@ -42,16 +41,9 @@ set(dependencies
 ## Install ##
 #############
 
-install(DIRECTORY urdf launch meshes
+install(DIRECTORY gazebo_model launch
   DESTINATION share/${PROJECT_NAME}
 )
-
-install(
-  PROGRAMS
-  launch/spawn_my_robot.py
-  DESTINATION lib/${PROJECT_NAME}
-)
-
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

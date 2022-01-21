@@ -16,8 +16,10 @@ def generate_launch_description():
     print(robot_desc)
     
     model_description_dir = get_package_share_directory('my_robot_description')
+    print("model_description_dir",model_description_dir)
 
-    return LaunchDescription([
+
+    return LaunchDescription([           
         #Run the spawn script
         launch_ros.actions.Node(
             package='my_robot_description',
@@ -31,15 +33,13 @@ def generate_launch_description():
             name="robot_state_publisher",
             parameters=[
                 {"robot_description": robot_desc}],
-            output="screen"),
-       
-       #Ensure gzweb can find the model description     
-       launch_ros.actions.Node(
+            output="screen"),     
+        
+        launch_ros.actions.Node(
             package='gzweb_model',
             executable='gzweb_model.bash',
             name='foo',
-            parameters=[model_description_dir],
-            ),         
-      
+            parameters=[model_description_dir+''],
+            ),   
               
     ])        

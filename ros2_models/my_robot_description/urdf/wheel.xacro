@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="wheel">
+        <xacro:macro name="wheel" params="alignment x_ y_ z_ r_ p_ j_">
+                <link name="${alignment}_wheel">
+                            <xacro:property name="w_mass" value="0.5" />
+                            <xacro:property name="w_radius" value="0.1" />
+                            <xacro:property name="w_height" value="0.05" />
+                        <visual>
+                                <origin xyz="0 0 0" rpy="${r_} 0 0"/>
+                                <geometry>
+                                  <cylinder length="${w_height}" radius="${w_radius}"/>
+                                </geometry>
+                        </visual>
+                        
+                        <inertial>
+                           <origin xyz="0 0 0"/>
+                           <mass value="${w_mass}" />
+                           <inertia ixx="${1/12*w_mass*(3*w_radius*w_radius+w_height*w_height)}" ixy="0.0" ixz="0.0" iyy="${1/2*w_mass*w_radius*w_radius}" iyz="0.0" izz="${1/12*w_mass*(3*w_radius*w_radius+w_height*w_height)}" />
+                          </inertial>
+                        <collision>
+                                <origin xyz="0 0 0" rpy="${r_} 0 0"/>
+                                <geometry>
+                                  <cylinder length="${w_height}" radius="${w_radius}"/>
+                                </geometry>
+                                <surface>
+                                  <friction>
+                                    <ode>
+                                      <mu>10</mu>
+                                      <mu2>10</mu2>
+                                    </ode>
+                                  </friction>
+                                 </surface>
+                        </collision>
+                </link>
+
+                   <joint name="${alignment}_wheel_hinge" type="continuous">
+                       <origin xyz="${x_} ${y_} ${z_}" rpy="0 0 0"/>
+                        <child link="${alignment}_wheel"/>
+                       <parent link="body_link"/>
+                       <axis xyz="0 1 0" rpy="0 0 0"/>
+                       <limit effort="1" velocity="10"/>
+                     <joint_properties damping="5.0" friction="1.0"/>
+                </joint>
+                
+                <gazebo reference="${alignment}_wheel">
+                   <material>Gazebo/Black</material>
+                </gazebo>
+
+        </xacro:macro>
+</robot>

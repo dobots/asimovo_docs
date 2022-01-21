@@ -2,6 +2,9 @@
 <robot name="my_robot" 
   xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+  <!-- add wheel xacro platform include files -->
+  <xacro:include filename="$(find my_robot_description)/urdf/wheel.xacro"/>
+	
   <link name="base_link"></link> 
   <joint name="base_link_joint" type="fixed">
     <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -12,29 +15,49 @@
   <link name='body_link'>
     <pose>0 0 0.1 0 0 0</pose>
 
+    <xacro:property name="mass" value="6" />
+    <xacro:property name="width" value="0.5" />
+    <xacro:property name="depth" value="0.7" />
+    <xacro:property name="height" value="0.2" />
+
     <inertial>
-      <mass value="5"/>
+      <mass value="${mass}"/>
       <origin xyz="0 0 0.05" rpy=" 0 0 0"/>
       <inertia 
-      ixx="0.01" ixy="0.01" ixz="0" 
-      iyy="0.01" iyz="0.01" 
-      izz="0.01" 
+      ixx="${1/12* mass*(width*width+height*height)}" ixy="0" ixz="0" 
+      iyy="${1/12* mass*(depth*depth+height*height)}" iyz="0" 
+      izz="${1/12* mass*(width*width+depth*depth)}" 
       />
     </inertial>
   
    <collision>
       <origin xyz="0 0 0.02" rpy="0 0 0"/>
       <geometry>
-        <box size="0.4 0.2 0.1"/>
+        <mesh filename="package://my_robot_description/meshes/clearpath_husky_chassis.dae" scale="1 1 1"/>
       </geometry>
     </collision>
 
     <visual>
       <origin xyz="0 0 0.02" rpy=" 0 0 0"/>
       <geometry>
-        <box size="0.4 0.2 0.1"/>
+        <mesh filename="package://my_robot_description/meshes/clearpath_husky_chassis.dae" scale="1 1 1"/>
       </geometry>
     </visual>
 
   </link>
+  
+   <!--wheel macros-->
+   <xacro:wheel alignment="front_left" x_="0.13" y_="-0.1" z_="0.0" r_="1.5707" p_="0" j_="0" >
+	</xacro:wheel>
+
+    <xacro:wheel alignment="front_right" x_="0.13" y_="0.1" z_="0.0" r_="1.5707" p_="0.0" j_="0.0" >
+	</xacro:wheel>
+
+   <xacro:wheel alignment="rear_left" x_="-0.13" y_="-0.1" z_="0.0" r_="1.5707" p_="0" j_="0" >
+	</xacro:wheel>
+
+    <xacro:wheel alignment="rear_right" x_="-0.13" y_="0.1" z_="0.0" r_="1.5707" p_="0.0" j_="0.0" >
+	</xacro:wheel>
+      
+
 </robot>
