@@ -3,8 +3,8 @@
         <xacro:macro name="wheel" params="alignment x_ y_ z_ r_ p_ j_">
                 <link name="${alignment}_wheel">
                             <xacro:property name="w_mass" value="0.5" />
-                            <xacro:property name="w_radius" value="0.1" />
-                            <xacro:property name="w_height" value="0.05" />
+                            <xacro:property name="w_radius" value="0.15" />
+                            <xacro:property name="w_height" value="0.1" />
                         <visual>
                                 <origin xyz="0 0 0" rpy="${r_} 0 0"/>
                                 <geometry>

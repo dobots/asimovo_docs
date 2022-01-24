@@ -4,6 +4,7 @@ import launch_ros.actions
 
 def generate_launch_description():
     raptor_description_dir = get_package_share_directory('raptor_description')
+    print(raptor_description_dir)
     return LaunchDescription([
         launch_ros.actions.Node(
             package='gazebo_ros',
@@ -15,6 +16,6 @@ def generate_launch_description():
             package='gzweb_model',
             executable='gzweb_model.bash',
             name='foo',
-            parameters=[raptor_description_dir+'/gazebo_model/raptor_model'],
+            arguments=[raptor_description_dir+'/gazebo_model/raptor_model'],
             ),    
     ])      

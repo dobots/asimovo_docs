@@ -4,6 +4,8 @@
 
   <!-- add wheel xacro platform include files -->
   <xacro:include filename="$(find my_robot_description)/urdf/wheel.xacro"/>
+<!-- add gazebo plugins -->
+<xacro:include filename="$(find my_robot_description)/urdf/my_robot.gazebo"/>
 	
   <link name="base_link"></link> 
   <joint name="base_link_joint" type="fixed">
@@ -47,17 +49,57 @@
   </link>
   
    <!--wheel macros-->
-   <xacro:wheel alignment="front_left" x_="0.13" y_="-0.1" z_="0.0" r_="1.5707" p_="0" j_="0" >
+   <xacro:wheel alignment="front_left" x_="0.26" y_="-0.27" z_="0.03" r_="1.5707" p_="0" j_="0" >
 	</xacro:wheel>
 
-    <xacro:wheel alignment="front_right" x_="0.13" y_="0.1" z_="0.0" r_="1.5707" p_="0.0" j_="0.0" >
+    <xacro:wheel alignment="front_right" x_="0.26" y_="0.27" z_="0.03" r_="1.5707" p_="0.0" j_="0.0" >
 	</xacro:wheel>
 
-   <xacro:wheel alignment="rear_left" x_="-0.13" y_="-0.1" z_="0.0" r_="1.5707" p_="0" j_="0" >
+   <xacro:wheel alignment="rear_left" x_="-0.26" y_="-0.27" z_="0.03" r_="1.5707" p_="0" j_="0" >
 	</xacro:wheel>
 
-    <xacro:wheel alignment="rear_right" x_="-0.13" y_="0.1" z_="0.0" r_="1.5707" p_="0.0" j_="0.0" >
+    <xacro:wheel alignment="rear_right" x_="-0.26" y_="0.27" z_="0.03" r_="1.5707" p_="0.0" j_="0.0" >
 	</xacro:wheel>
       
+      
+   <!-- rplidar Laser -->
+<link name="laser">
+  <collision>
+     <origin xyz="0 0 0" rpy="1.5707 0 4.71"/>
+     <geometry>
+       <mesh filename="package://my_robot_description/meshes/rplidar.stl" scale="0.001 0.001 0.001" />
+     </geometry>
+   </collision>
+   <visual>
+     <origin xyz="0 0 0" rpy="1.5707 0 4.71"/>
+     <geometry>
+     <mesh filename="package://my_robot_description/meshes/rplidar.stl" scale="0.001 0.001 0.001" />
+     </geometry>
+   </visual>
+
+   <inertial>
+     <mass value="1e-5" />
+     <origin xyz="0 0 0" rpy="1.5707 0 4.71"/>
+       <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+      </inertial>
+ </link>	  
+ 
+ <joint name="rplidar_joint" type="fixed">
+    <axis xyz="0 1 0" />
+     <origin xyz="0.23 0 0.24" rpy="0 0 3.14"/>
+    <parent link="body_link"/>
+    <child link="laser"/>
+ </joint> 
+
+<!--imu-->
+ <joint name="imu_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="body_link"/>
+    <child link="imu_link"/>
+  </joint>
+
+  <link name="imu_link">
+  </link>
+
 
 </robot>

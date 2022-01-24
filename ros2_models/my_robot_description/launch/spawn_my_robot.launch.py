@@ -39,7 +39,7 @@ def generate_launch_description():
             package='gzweb_model',
             executable='gzweb_model.bash',
             name='foo',
-            parameters=[model_description_dir+''],
+            arguments=[model_description_dir],
             ),   
               
     ])        
