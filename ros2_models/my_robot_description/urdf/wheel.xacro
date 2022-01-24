@@ -45,6 +45,16 @@
                 <gazebo reference="${alignment}_wheel">
                    <material>Gazebo/Black</material>
                 </gazebo>
+                
+                <transmission name="${alignment}_wheel_trans" type="SimpleTransmission">
+                <type>transmission_interface/SimpleTransmission</type>
+                   <actuator name="${alignment}_wheel_motor">
+                     <mechanicalReduction>1</mechanicalReduction>
+                   </actuator>
+                 <joint name="${alignment}_wheel_hinge">
+             <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                   </joint>
+                </transmission>
 
         </xacro:macro>
 </robot>
